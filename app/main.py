@@ -14,12 +14,15 @@ if not documents:
     raise RuntimeError("No documents found in the data directory.")
 index = build_faiss_index(documents)
 
+
 # Define the request and response models for the query endpoint
 class QueryRequest(BaseModel):
     query: str
 
+
 class QueryResponse(BaseModel):
     response: str
+
 
 @app.post("/query", response_model=QueryResponse)
 async def query(request: QueryRequest) -> QueryResponse:

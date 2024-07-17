@@ -1,7 +1,7 @@
 import faiss
 from transformers import AutoTokenizer, AutoModel, PreTrainedTokenizer, PreTrainedModel
 import torch
-from typing import List, Tuple, Any
+from typing import List, Any
 import warnings
 
 # Suppress specific warnings related to Hugging Face Hub file downloads
