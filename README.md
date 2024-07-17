@@ -3,7 +3,10 @@
 ## Overview
 This is a simple Retrieval-Augmented Generation (RAG) application that integrates a document retrieval system with a large language model (LLM) to generate responses based on retrieved documents.
 
-## Setup and Usage
+## Running Tests
+- python -m pytest
+
+## Docker Setup and Usage
 
 ### Prerequisites
 - Docker
@@ -29,7 +32,7 @@ This is a simple Retrieval-Augmented Generation (RAG) application that integrate
 
 ### Example
 
-To ask a question to the RAG app, send a POST request to `http://localhost:8000/query` with the following JSON body:
+To ask a question to the RAG app, send a POST request to `http://localhost:8000/query` with the following structure of a JSON body:
 ```json
 {
   "query": "Are you selling in Germany?"

@@ -2,37 +2,33 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from .retrieval import retrieve_documents, build_faiss_index
 from .models import generate_response
-import os
+from .settings import DATA_DIR
+from .utils import load_documents
+from typing import List
 
 app = FastAPI()
 
-# Load documents from the data folder
-data_dir = os.path.join(os.path.dirname(__file__), '../data')
-documents = []
-for filename in os.listdir(data_dir):
-    if filename.endswith('.md'):
-        with open(os.path.join(data_dir, filename), 'r', encoding='utf-8') as file:
-            documents.append(file.read())
-
-# Build the FAISS index
+# Load documents from the data directory and build the FAISS index
+documents: List[str] = load_documents(DATA_DIR)
+if not documents:
+    raise RuntimeError("No documents found in the data directory.")
 index = build_faiss_index(documents)
 
-
+# Define the request and response models for the query endpoint
 class QueryRequest(BaseModel):
     query: str
-
 
 class QueryResponse(BaseModel):
     response: str
 
-
 @app.post("/query", response_model=QueryResponse)
-async def query(request: QueryRequest):
-    retrieved_docs = retrieve_documents(request.query, documents, index)
-    response = generate_response(request.query, retrieved_docs)
-
-    # Ensure response is not None
-    if not response:
-        response = "No response generated."
+async def query(request: QueryRequest) -> QueryResponse:
+    """
+    Endpoint to handle user queries and return responses based on document retrieval.
+    """
+    # Retrieve relevant documents based on the query
+    retrieved_docs: str = retrieve_documents(request.query, documents, index)
+    # Generate a response using the retrieved documents
+    response: str = generate_response(request.query, retrieved_docs)
 
     return QueryResponse(response=response)
