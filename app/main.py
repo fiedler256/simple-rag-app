@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from .retrieval import retrieve_documents, build_faiss_index
-from .models import generate_response
-from .settings import DATA_DIR
-from .utils import load_documents
+from app.retrieval import retrieve_documents, build_faiss_index
+from app.models import generate_response
+from app.settings import DATA_DIR
+from app.utils import load_documents
 from typing import List
 
 app = FastAPI()

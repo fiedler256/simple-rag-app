@@ -1,8 +1,8 @@
 from fastapi import HTTPException
 from transformers import AutoTokenizer, PreTrainedTokenizer
 from huggingface_hub import InferenceClient
-from .settings import HUGGINGFACE_API_KEY, MODEL_ID
-from .utils import approximate_token_count, truncate_text
+from app.settings import HUGGINGFACE_API_KEY, MODEL_ID
+from app.utils import approximate_token_count, truncate_text
 
 # Load the tokenizer for the public model
 tokenizer: PreTrainedTokenizer = AutoTokenizer.from_pretrained("distilbert/distilbert-base-uncased")
