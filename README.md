@@ -3,26 +3,86 @@
 ## Overview
 This is a simple Retrieval-Augmented Generation (RAG) application that integrates a document retrieval system with a large language model (LLM) to generate responses based on retrieved documents.
 
-## Running Tests
-- python -m pytest
+## Running With Docker
 
-## Docker Setup and Usage
+0. **Prerequisites**
+    ###### Docker
 
-### Prerequisites
-- Docker
 
-### Running the Application
+1. **Clone the repository**
+    ```bash
+    git clone https://github.com/fiedler256/simple-rag-app.git
+    cd simple-rag-app
+    ```
+   
+2. **(Optional) Create a .env file in the project root with your Hugging Face API key:**
+    #### On Windows
+    ```bash
+    echo "#" | Out-File -Encoding utf8 .env; echo "HUGGINGFACE_API_KEY=your_hugging_face_api_key" | Out-File -Encoding utf8 -Append .env
+    ```
+    #### On Linux
+    ```bash
+    echo -e "#\nHUGGINGFACE_API_KEY=your_hugging_face_api_key" > .env
+    ```
 
-1. **Build the Docker image:**
+3. **Build the Docker image:**
     ```bash
     docker build -t simple-rag-app .
     ```
 
-2. **Run the Docker container with Llama model:**
+4. **Run the Docker container**
     ```bash
-    docker run -p 8000:8000 -e HUGGINGFACE_API_KEY=<your-huggingface-api-key> simple-rag-app
+    docker run -p 8000:8000 simple-rag-app
     ```
-   - Providing Hugging Face API key is optional for using the Hugging Face API. If not set, the Inference API might be used with lower rate limits or not available at all.
+
+## Running Without Docker
+
+0. **Prerequisites**
+    ###### Python 3.10
+
+
+1. **Clone the repository**
+    ```bash
+    git clone https://github.com/fiedler256/simple-rag-app.git
+    cd simple-rag-app
+    ```
+   
+2. **(Optional) Create a .env file in the project root with your Hugging Face API key:**
+    #### On Windows
+    ```bash
+    echo "#" | Out-File -Encoding utf8 .env; echo "HUGGINGFACE_API_KEY=your_hugging_face_api_key" | Out-File -Encoding utf8 -Append .env
+    ```
+    #### On Linux
+    ```bash
+    echo -e "#\nHUGGINGFACE_API_KEY=your_hugging_face_api_key" > .env
+    ```
+
+3. **Create a virtual environment and activate it:**
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
+
+4. **Install the dependencies:**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+5. **Running the Application**
+
+    ```bash
+    uvicorn app.main:app --host 0.0.0.0 --port 8000
+    ```
+
+### Running Tests
+1. **Pytest**
+    ```bash
+    pytest -v
+    ```
+
+## Usage
 
 ### API Endpoints
 
